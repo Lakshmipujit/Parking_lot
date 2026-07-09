@@ -23,7 +23,9 @@ export default function App() {
 
   const loadSlots = useCallback(async () => {
     try {
-      const res = await fetch('/api/slots');
+      const API_URL = "https://parking-backend-v1sj.onrender.com";
+
+      const res = await fetch(`${API_URL}/api/slots`);
       const data = await res.json();
       setSlots(data);
     } catch (err) {
