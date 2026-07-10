@@ -20,11 +20,9 @@ export default function App() {
   const [parkLoading, setParkLoading] = useState(false);
   const [exitLoading, setExitLoading] = useState(false);
   const [banner, setBanner] = useState(null); // { type: 'error'|'success', text }
-
+  const API_URL = "https://parking-backend-v1sj.onrender.com";
   const loadSlots = useCallback(async () => {
     try {
-      const API_URL = "https://parking-backend-v1sj.onrender.com";
-
       const res = await fetch(`${API_URL}/api/slots`);
       const data = await res.json();
       setSlots(data);
@@ -35,9 +33,9 @@ export default function App() {
 
   const loadParked = useCallback(async () => {
     try {
-      const res = await fetch('/api/parked');
+      const res = await fetch(`${API_URL}/api/parked`);
       const data = await res.json();
-      setParked(data);
+      setParked(data.vehicles || []);
     } catch (err) {
       setBanner({ type: 'error', text: 'Could not reach the server for the parked list.' });
     }
@@ -60,7 +58,7 @@ export default function App() {
 
     setParkLoading(true);
     try {
-      const res = await fetch('/api/park', {
+      const res = await fetch(`${API_URL}/api/park`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(parkForm),
@@ -100,7 +98,7 @@ export default function App() {
 
     setExitLoading(true);
     try {
-      const res = await fetch('/api/exit', {
+      const res = await fetch(`${API_URL}/api/exit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
