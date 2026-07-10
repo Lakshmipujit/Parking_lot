@@ -581,6 +581,39 @@ ORDER BY entry_time ASC`
 // START SERVER
 // -----------------------------------------------------
 
+// -----------------------------------------------------
+// GET PARKED VEHICLES
+// -----------------------------------------------------
+
+app.get('/api/parked', async (req, res) => {
+    try {
+        const [rows] = await pool.query(`
+            SELECT
+                ticket_id,
+                vehicle_number,
+                vehicle_type,
+                entry_time
+            FROM tickets
+            WHERE status = 'parked'
+            ORDER BY entry_time DESC
+        `);
+
+        res.json({
+            success: true,
+            vehicles: rows
+        });
+
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            success: false,
+            message: "Server error"
+        });
+    }
+});
+
+
 const PORT = process.env.PORT || 4000;
 
 
