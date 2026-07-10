@@ -35,7 +35,7 @@ export default function App() {
     try {
       const res = await fetch(`${API_URL}/api/parked`);
       const data = await res.json();
-      setParked(data.vehicles || []);
+      setParked(data);
     } catch (err) {
       setBanner({ type: 'error', text: 'Could not reach the server for the parked list.' });
     }
