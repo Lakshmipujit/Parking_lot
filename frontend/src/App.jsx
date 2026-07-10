@@ -114,7 +114,9 @@ export default function App() {
       }
 
       setReceipt(data.receipt);
+      setLastTicket(null);   // <-- Add this line here
       setExitForm({ identifier: '' });
+
       loadSlots();
       loadParked();
     } catch (err) {
