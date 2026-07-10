@@ -64,7 +64,8 @@ export default function App() {
         body: JSON.stringify(parkForm),
       });
       const data = await res.json();
-
+      console.log("Status:", res.status);
+      console.log("Response:", data);
       if (!res.ok || !data.success) {
         setBanner({ type: 'error', text: data.message || 'Could not park the vehicle.' });
         return;
@@ -76,6 +77,7 @@ export default function App() {
       loadSlots();
       loadParked();
     } catch (err) {
+      console.errot(err);
       setBanner({ type: 'error', text: 'Network error while parking the vehicle.' });
     } finally {
       setParkLoading(false);
